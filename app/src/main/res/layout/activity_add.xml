@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:gravity="center"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:theme="@style/AppTheme.PopupOverlay">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="여행 프로필"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="여행 제목"/>
+
+        <EditText
+            android:background="@drawable/xml_border_gray"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/title"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:hint="제목을 입력해주세요"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textCursorDrawable="@null"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="여행 국가"/>
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:spinnerMode="dialog"
+            android:background="@drawable/xml_border_gray"
+            android:layout_marginBottom="30dp">
+        </Spinner>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="여행 날짜"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:id="@+id/btn_start"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/calendar"
+                android:layout_marginRight="12dp"/>
+
+            <TextView
+                android:background="@drawable/xml_border_gray"
+                android:gravity="center"
+                android:id="@+id/start"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:text=" 시작일 "
+                android:textColor="@color/gray"
+                android:textSize="15dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_end"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/calendar"
+                android:layout_marginRight="12dp"/>
+
+            <TextView
+                android:background="@drawable/xml_border_gray"
+                android:gravity="center"
+                android:id="@+id/end"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:text=" 종료일 "
+                android:textColor="@color/gray"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text=" 완료 "
+            android:background="@color/main"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_marginTop="50dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

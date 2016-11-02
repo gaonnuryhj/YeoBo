@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="50dp">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="320dp"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content">
+        <!--********************************************-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="320dp"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:layout_height="120dp">
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:text=" date "
+                android:textColor="@color/darkGray"
+                android:textSize="15dp"
+                android:src="@drawable/un"
+                android:gravity="center_vertical"
+                android:textCursorDrawable="@null"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingLeft="15dp"
+                    android:background="@null"
+                    android:id="@+id/nation_name_en"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:text=" Republic of Korea"
+                    android:textColor="@color/darkGray"
+                    android:textSize="15dp"
+                    android:textCursorDrawable="@null"/>
+            </LinearLayout>
+            </LinearLayout>
+        <!--********************************************-->
+        <!--********************************************-->
+        <TextView
+            android:id="@+id/info_nation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</LinearLayout>
+
