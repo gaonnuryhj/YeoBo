@@ -30,6 +30,7 @@ public class JoinActivity extends AppCompatActivity {
     CheckBox check1;
     Button btn1;
     TextView warn;
+    String password;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class JoinActivity extends AppCompatActivity {
                     UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
                     String deviceId = deviceUuid.toString();
                     // *****핸드폰 고유번호 가져오기*****
-                    join(deviceId, nick.getText().toString());
+                    join(deviceId, nick.getText().toString(),password);
                 }
                 else{
                     warn.setText("동의함에 체크해주세요");
@@ -71,14 +72,14 @@ public class JoinActivity extends AppCompatActivity {
         });
     }
 
-    void join(final String id_num, final String nick){
+    void join(final String id_num, final String nick,final String password){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.166.146:8080").build();
                 Retrofit retrofit = restAdapter.create(Retrofit.class);
 
-                retrofit.join(2, id_num, nick, new Callback<JsonObject>() {
+                retrofit.join(2, id_num, nick,password, new Callback<JsonObject>() {
                     @Override
                     public void success(JsonObject jsonObject, Response response) {
                         JsonArray result = jsonObject.getAsJsonArray("result");

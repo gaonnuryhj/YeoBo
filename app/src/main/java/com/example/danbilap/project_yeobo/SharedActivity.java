@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 
 import java.io.BufferedInputStream;
@@ -228,8 +230,9 @@ public class SharedActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Document doc = Jsoup.parse(result);
-            Elements elements = doc.select("meta");
+            Document doc = (Document) Jsoup.parse(result);
+           // Elements elements = doc.select("meta");
+            Elements elements = (Elements) doc.getElementsByTagName("meta");
 
             String imageUrl = null;
             for (int i = 0; i < elements.size(); i++) {

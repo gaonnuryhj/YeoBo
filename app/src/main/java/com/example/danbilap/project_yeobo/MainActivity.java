@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     TextView title_travel, start_date, end_date;
     ImageView flag;
 
-    String id_num;
+    String id;
 
     GridView gridView1;
     GridAdapter gridAdapter;
@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent i=getIntent();
+        id=i.getStringExtra("id");
         init();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -55,18 +57,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
-
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(toggle);
-//        toggle.syncState();
-//
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -76,18 +70,8 @@ public class MainActivity extends AppCompatActivity
 
         gridView1 = (GridView) findViewById(R.id.gridView1);
 
-        // *****핸드폰 고유번호 가져오기*****
-        final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
 
-        final String tmDevice, tmSerial, androidId;
-        tmDevice = "" + tm.getDeviceId();
-        tmSerial = "" + tm.getSimSerialNumber();
-        androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-
-        UUID deviceUuid = new UUID(androidId.hashCode(), ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
-        String deviceId = deviceUuid.toString();
-        // *****핸드폰 고유번호 가져오기*****
-        show_travel(deviceId);
+        show_travel(id);
 
         gridAdapter = new GridAdapter(this, R.layout.gridview1_item, background, t_arr);
         // 커스텀 어댑터를 GridView 에 적용
@@ -100,9 +84,9 @@ public class MainActivity extends AppCompatActivity
                 Bundle bundle = new Bundle();
                 bundle.putString("t_title", t.getT_title());
                 bundle.putInt("t_num", t.getT_id());
-                bundle.putInt("n_id", t.getN_id());
-                bundle.putString("t_nation_en", t.getT_nation_en());
+                bundle.putInt("n_id", t.getC_id());
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                intent.putExtra("id", id);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -111,69 +95,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-
-    //  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-    //  if (drawer.isDrawerOpen(GravityCompat.START)) {
-    //      drawer.closeDrawer(GravityCompat.START);
-    //  } else {
-    //      super.onBackPressed();
-    //  }
-    // }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        int id = item.getItemId();
-//
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-//
-//    @SuppressWarnings("StatementWithEmptyBody")
-//    @Override
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-
-    void show_travel(final String id_num) {
+    void show_travel(final String u_id) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.166.146:8080").build();
                 Retrofit retrofit = restAdapter.create(Retrofit.class);
-                retrofit.show_travel(6, id_num, new Callback<JsonObject>() {
+                retrofit.show_travel(6, u_id, new Callback<JsonObject>() {
                     @Override
                     public void success(JsonObject jsonObject, Response response) {
                         JsonArray result = jsonObject.getAsJsonArray("result");
@@ -182,13 +110,12 @@ public class MainActivity extends AppCompatActivity
                             JsonObject obj = (JsonObject) result.get(i);
                             int t_num = obj.get("travel_number").getAsInt();
                             String t_title = obj.get("travel_title").getAsString();
-                            int n_id = obj.get("nation_id").getAsInt();
+                            int n_id = obj.get("city_id").getAsInt();
                             String t_start = obj.get("travel_start").getAsString();
                             String t_finish = obj.get("travel_finish").getAsString();
-                            String t_nation_en = obj.get("travel_nation_en").getAsString(); // 되나?
 
                             // 국기 이미지 가져와야함
-                            Travel t = new Travel(R.drawable.united_states_of_america, t_num, t_title, n_id, t_nation_en, t_start, t_finish);
+                            Travel t = new Travel(R.drawable.united_states_of_america, t_num, t_title, n_id, t_start, t_finish);
                             t_arr.add(t);
                         }
                     }

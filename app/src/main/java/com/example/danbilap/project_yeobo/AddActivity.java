@@ -52,10 +52,10 @@ public class AddActivity extends Activity {
 
     EditText title;
 
-    String t_title, t_nation_en, t_nation, n_id, t_start, t_finish;
+    String t_title, t_city, c_id, t_start, t_finish,id;
 
-    InformationSearchTask informationSearchTask;
-    ContactSearchTask contactSearchTask;
+//    InformationSearchTask informationSearchTask;
+//    ContactSearchTask contactSearchTask;
    // String travel_nation;
     //int nationid;
     String nationbasic;   //id를 통해 받은 국가 정보
@@ -66,6 +66,8 @@ public class AddActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        Intent i=getIntent();
+        id=i.getStringExtra("id");
         init();
     }
 
@@ -129,7 +131,7 @@ public class AddActivity extends Activity {
                 t_finish = end.getText().toString();
                 // t_nation, n_id은 onPostExecute에서
 
-                if (TextUtils.isEmpty(t_title)  || TextUtils.isEmpty(t_nation_en) || TextUtils.isEmpty(n_id) || TextUtils.isEmpty(t_start) || TextUtils.isEmpty(t_finish)) {
+                if (TextUtils.isEmpty(t_title)  || TextUtils.isEmpty(c_id) || TextUtils.isEmpty(t_start) || TextUtils.isEmpty(t_finish)) {
                     Toast.makeText(AddActivity.this, "모두 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     // *****핸드폰 고유번호 가져오기*****
@@ -140,19 +142,19 @@ public class AddActivity extends Activity {
                     tmSerial = "" + tm.getSimSerialNumber();
                     androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
-                    UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+                   /* UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
                     String deviceId = deviceUuid.toString();
-                    // *****핸드폰 고유번호 가져오기*****
-                    create_travel(deviceId, t_title, t_nation_en, t_nation, Integer.parseInt(n_id), t_start, t_finish);
+                    // *****핸드폰 고유번호 가져오기******/
+                    create_travel(id, t_title, t_city, Integer.parseInt(c_id), t_start, t_finish);
                 }
 
                 AddActivity.this.finish();
 
-                informationSearchTask = new InformationSearchTask();
+                /*informationSearchTask = new InformationSearchTask();
                 informationSearchTask.execute();
 
                 contactSearchTask = new ContactSearchTask();
-                contactSearchTask.execute();
+                contactSearchTask.execute();*/
             }
         });
 
@@ -166,14 +168,14 @@ public class AddActivity extends Activity {
 
     }
 
-    class InformationSearchTask extends AsyncTask<Void, Void, String> {
+    /*class InformationSearchTask extends AsyncTask<Void, Void, String> {
 
         @Override
         protected String doInBackground(Void... country) {
 
             String url = "http://apis.data.go.kr/1262000/CountryBasicService/getCountryBasicInfo"   //요청 URL
                     + "?ServiceKey=" + key                       //인증키 값
-                    + "&id=" + n_id;                 //id 요청값
+                    + "&id=" + c_id;                 //id 요청값
             XmlPullParserFactory factory;
             XmlPullParser parser;
             URL xmlUrl;
@@ -237,7 +239,7 @@ public class AddActivity extends Activity {
 
             String url = "http://apis.data.go.kr/1262000/ContactService/getContactList"   //요청 URL
                     + "?ServiceKey=" + key                        //인증키 값
-                    + "&countryName=" + t_nation;
+                    + "&countryName=" + t_city;
 
             XmlPullParserFactory factory;
             XmlPullParser parser;
@@ -289,22 +291,19 @@ public class AddActivity extends Activity {
         protected void onPostExecute(String result) {
             nationphone = result;
 
-            info_write(t_nation, Integer.parseInt(n_id), nationbasic,nationphone,t_nation_en);
-            Toast.makeText(getApplicationContext(),"travel_nation는 "+t_nation,Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),"nationid는 "+n_id,Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),"nationbasic은 "+nationbasic,Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),"nationphone은 "+nationphone,Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),"travelnationen은 "+t_nation_en,Toast.LENGTH_SHORT).show();
+          //  info_write(t_nation, Integer.parseInt(n_id), nationbasic,nationphone,t_nation_en);
+            Toast.makeText(getApplicationContext(),"travel_nation는 "+t_city,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"nationid는 "+c_id,Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
-    void info_write(final String t_nation, final int n_id, final String nationbasic, final String nationphone, final String t_nation_en) {
+    void info_write(final String t_city, final int c_id) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.166.146:8080").build();
                 Retrofit retrofit = restAdapter.create(Retrofit.class);
-                retrofit.info_write(5, t_nation, n_id, nationbasic, nationphone, t_nation_en, new Callback<JsonObject>() {
+                retrofit.info_write(5, t_city, c_id, new Callback<JsonObject>() {
 
                     @Override
                     public void success(JsonObject jsonObject, Response response) {
@@ -324,13 +323,13 @@ public class AddActivity extends Activity {
         }).start();
     }
 
-    void create_travel(final String id_num, final String t_title, final String t_nation_en, final String t_nation, final int n_id, final String t_start, final String t_finish){
+    void create_travel(final String u_id, final String t_title,  final String t_city, final int c_id, final String t_start, final String t_finish){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.166.146:8080").build();
                 Retrofit retrofit = restAdapter.create(Retrofit.class);
-                retrofit.create_travel(4,id_num, t_title, t_nation_en, t_nation, n_id, t_start, t_finish, new Callback<JsonObject>() {
+                retrofit.create_travel(4,u_id, t_title, t_city, c_id, t_start, t_finish, new Callback<JsonObject>() {
                     @Override
                     public void success(JsonObject jsonObject, Response response) {
                         JsonArray result = jsonObject.getAsJsonArray("result");
@@ -339,6 +338,7 @@ public class AddActivity extends Activity {
                         if (errcode.equals("success")) {
                             Toast.makeText(AddActivity.this, "새로운 여행이 추가되었습니다!", Toast.LENGTH_SHORT).show();
                             Intent myIntent = new Intent(AddActivity.this, MainActivity.class);
+                            myIntent.putExtra("id", id);
                             startActivity(myIntent);
                             AddActivity.this.finish();
                         }
@@ -452,9 +452,8 @@ public class AddActivity extends Activity {
             spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    t_nation = countryname.get(position);
-                    t_nation_en = countryenname.get(position);
-                    n_id = countryid.get(position);
+                    t_city = countryname.get(position);
+                    c_id = countryid.get(position);
                 }
 
                 @Override

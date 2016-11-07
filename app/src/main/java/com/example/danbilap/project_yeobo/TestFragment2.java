@@ -35,12 +35,12 @@ public class TestFragment2 extends Fragment {
         info_nation = (TextView)rootView.findViewById(R.id.info_nation);
         nation_name_en = (TextView)rootView.findViewById(R.id.nation_name_en);
 
-        info_nation(n_id); // n_id는 도착 완료 상태
+     //   info_nation(n_id); // n_id는 도착 완료 상태
 
         return rootView;
     }
 
-    void info_nation(final int n_id){
+    /*void info_nation(final int n_id){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -66,5 +66,5 @@ public class TestFragment2 extends Fragment {
                 });
             }
         }).start();
-    }
+    }*/
 }

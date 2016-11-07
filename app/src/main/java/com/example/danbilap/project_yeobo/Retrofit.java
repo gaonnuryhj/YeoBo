@@ -11,25 +11,22 @@ import retrofit.http.Query;
  */
 public interface Retrofit {
     @GET("/yeobo.php") // 4
-    public void create_travel(@Query("flag") int flag, @Query("identity_number") String id_num, @Query("travel_title") String t_title,
-                              @Query("travel_nation_en") String t_nation_en, @Query("travel_nation") String t_nation, @Query("nation_id") int n_id, @Query("travel_start") String t_start,
+    public void create_travel(@Query("flag") int flag, @Query("u_id") String u_id, @Query("travel_title") String t_title,
+                              @Query("travel_city") String t_city, @Query("city_id") int c_id, @Query("travel_start") String t_start,
                               @Query("travel_finish") String t_finish, Callback<JsonObject> callback);
 
     @GET("/yeobo.php") // 6
-    public void show_travel(@Query("flag") int flag, @Query("identity_number") String id_num, retrofit.Callback<JsonObject> callback);
-
-    @GET("/yeobo.php") // 3
-    public void login(@Query("flag") int flag, @Query("identity_number") String id_num, retrofit.Callback<JsonObject> callback);
-
-    @GET("/yeobo.php") // 2
-    public void join(@Query("flag") int flag, @Query("identity_number") String id_num, @Query("nickname") String nick, retrofit.Callback<JsonObject> callback);
-
-    @GET("/yeobo.php") // 5
-    public void info_write(@Query("flag") int flag,@Query("travel_nation") String t_nation, @Query("nation_id") int n_id, @Query("nation_basic") String nationbasic,
-                           @Query("nation_phone") String nationphone, @Query("travel_nation_en") String t_nation_en, retrofit.Callback<JsonObject> callback);
+    public void show_travel(@Query("flag") int flag, @Query("u_id") String id_num, retrofit.Callback<JsonObject> callback);
 
     @GET("/yeobo.php") // 7
-    public void info_nation(@Query("flag") int flag, @Query("nation_id") int n_id, retrofit.Callback<JsonObject> callback);
+    public void login(@Query("flag") int flag, @Query("u_id") String id_num,@Query("u_pw") String password, retrofit.Callback<JsonObject> callback);
+
+    @GET("/yeobo.php") // 2
+    public void join(@Query("flag") int flag, @Query("u_id") String id_num,  @Query("u_pw") String password,@Query("nickname") String nick, retrofit.Callback<JsonObject> callback);
+
+    @GET("/yeobo.php") // 5
+    public void info_write(@Query("flag") int flag,@Query("travel_city") String t_city, @Query("city_id") int n_id, retrofit.Callback<JsonObject> callback);
+
 
     @GET("/yeobo.php")
     public void share_write(@Query("travel_number") int travel_number, @Query("share_url") String sharedUrl, @Query("category") String sharedCategory,

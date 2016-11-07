@@ -1,5 +1,4 @@
 package com.example.danbilap.project_yeobo;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;

@@ -1,5 +1,6 @@
 package com.example.danbilap.project_yeobo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public class SecondActivity extends AppCompatActivity {
 
-    String t_title, t_nation_en;
+    String t_title, id;
     int t_num, n_id;
     TextView title;
 
@@ -21,6 +22,8 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        Intent i=getIntent();
+        id=i.getStringExtra("id");
         init();
 
     }
@@ -34,9 +37,8 @@ public class SecondActivity extends AppCompatActivity {
         t_title  = bundle.getString("t_title");
         title.setText(t_title);
 
-        t_nation_en = bundle.getString("t_nation_en");
         t_num = bundle.getInt("t_num");
-        n_id = bundle.getInt("n_id");
+        n_id = bundle.getInt("c_id");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
