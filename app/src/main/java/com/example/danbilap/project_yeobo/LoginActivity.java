@@ -391,7 +391,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                             MyApp.getApp().setLogin(login);
 
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("id", email);
+                            intent.putExtra("id", id_num);
                             startActivity(intent);
                             LoginActivity.this.finish(); // MainActivity로 이동
 

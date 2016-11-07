@@ -11,8 +11,8 @@ import retrofit.http.Query;
  */
 public interface Retrofit {
     @GET("/yeobo.php") // 4
-    public void create_travel(@Query("flag") int flag, @Query("u_id") String u_id, @Query("travel_title") String t_title,
-                              @Query("travel_city") String t_city, @Query("city_id") int c_id, @Query("travel_start") String t_start,
+    public void create_travel(@Query("flag") int flag, @Query("u_id") String u_id,
+                              @Query("travel_city") String t_city, @Query("travel_title") String t_title, @Query("travel_start") String t_start,
                               @Query("travel_finish") String t_finish, Callback<JsonObject> callback);
 
     @GET("/yeobo.php") // 6

@@ -68,7 +68,8 @@
             android:textColorHint="@color/gray"
             android:textColor="@color/black"
             android:textSize="15dp"
-            android:textCursorDrawable="@null"/>
+            android:textCursorDrawable="@null" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,14 +77,19 @@
             android:layout_marginBottom="10dp"
             android:text="여행 국가"/>
 
-        <Spinner
-            android:id="@+id/spinner1"
+        <AutoCompleteTextView
+            android:background="@drawable/xml_border_gray"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/travel_city"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:spinnerMode="dialog"
-            android:background="@drawable/xml_border_gray"
-            android:layout_marginBottom="30dp">
-        </Spinner>
+            android:textAlignment="center"
+            android:hint="제목을 입력해주세요"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textCursorDrawable="@null"
+            android:completionThreshold="2" />
 
         <TextView
             android:layout_width="wrap_content"
