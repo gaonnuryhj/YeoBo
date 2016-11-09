@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.example.gawon.mobileproject_sharetest2.MainActivity">
+    tools:context="com.example.danbilap.project_yeobo.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

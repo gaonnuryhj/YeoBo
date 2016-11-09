@@ -11,24 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-//    int test;
-//
-//    public static TestFragment1 newInstance(int test){
-//        TestFragment1 instance = new TestFragment1();
-//        instance.test = test;
-//        ////
-//        return instance;
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_test_1, container, false);
-//
-//        TextView textView = (TextView) rootView.findViewById(R.id.test_text);
-//        textView.setText(""+test);
-//
-//        return rootView;
-//    }
 public class TestFragment1 extends Fragment {
     int travel_number;
     String sharedText = null;
@@ -62,19 +44,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         }
     });
 
-    Bundle bundle=new Bundle();
-    bundle.putString("category",category);
-    bundle.putString("sharedText", sharedText);
-    bundle.putString("imageUri"," ");
-    bundle.putString("travel_number", " ");
 
-    Intent intent = new Intent(getActivity().getApplication(),SharedActivity.class);
-    intent.putExtras(bundle);
-    startActivity(intent);
     return rootView;
 
 }
-
-
     }
 

@@ -29,9 +29,8 @@ public interface Retrofit {
 
 
     @GET("/yeobo.php")
-    public void share_write(@Query("travel_number") int travel_number, @Query("share_url") String sharedUrl, @Query("category") String sharedCategory,
-                            @Query("share_img") String sharedStringBitmap, @Query("share_subtitle") String sharedDescription,
-                            @Query("share_title") String sharedTitle, @Query("flag") int flag, retrofit.Callback<JsonObject>callback); //공유해서 보낼 데이터
+    public void share_write(@Query("flag") int flag,@Query("travel_number") int travel_number, @Query("share_url") String sharedUrl,
+                            retrofit.Callback<JsonObject>callback); //공유해서 보낼 데이터
     @GET("/yeobo.php")
     public void share_read(@Query("travel_number") int travel_number, @Query("category") String sharedCategory, @Query("flag") int flag, retrofit.Callback<JsonObject>callback);
 }

@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     SharedPreferences setting;
     SharedPreferences.Editor editor;
 
-    String email, password, result;
+    String email, password, result,url;
     Intent intent;
 
     @Override
@@ -84,6 +84,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         setContentView(R.layout.activity_login);
         // Set up the login form.
 
+        Intent share=getIntent();
+        url=share.getStringExtra("url");
+        
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         Auto_Login = (CheckBox) findViewById(R.id.checkBox);
@@ -392,6 +395,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("id", id_num);
+                            intent.putExtra("url",url);
                             startActivity(intent);
                             LoginActivity.this.finish(); // MainActivity로 이동
 

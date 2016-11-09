@@ -1,3 +1,4 @@
+/*
 package com.example.danbilap.project_yeobo;
 
 import android.app.Activity;
@@ -45,9 +46,11 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+*/
 /**
  * Created by DANBI LAP on 2016-06-22.
- */
+ *//*
+
 public class SharedActivity extends Activity {
 
     String sharedText ;
@@ -276,7 +279,8 @@ public class SharedActivity extends Activity {
                 sharedStringBitmap = bitmapToString(sharedBitmap);
 
                 //imageUrl, sharedDescription, sharedTItle이 들어왔을 때는 실행되지 않도록 if문 안에 넣어준다.
-                //****이 부분에서 db insert, insert 성공하면 shared_array에 add하는 부분******
+                /*/
+/****이 부분에서 db insert, insert 성공하면 shared_array에 add하는 부분******
 
                 Toast.makeText(getApplicationContext(),"travel number는 "+travel_number,Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(),"sharedUrl는 "+sharedUrl,Toast.LENGTH_SHORT).show();
@@ -385,11 +389,13 @@ public class SharedActivity extends Activity {
                 RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.166.146:8080").build();
                 Retrofit retrofit = restAdapter.create(Retrofit.class);
                 retrofit.share_write(travel_number,sharedUrl,sharedCategory,sharedStringBitmap,sharedDescription,sharedTitle, flag, new Callback<JsonObject>() {
-                   /* Toast.makeText(getApplicationContext(),"sharedText는 "+sharedText,Toast.LENGTH_SHORT).show();
+                   */
+/* Toast.makeText(getApplicationContext(),"sharedText는 "+sharedText,Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(),"sharedUrl는 "+sharedUrl,Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(),"sharedCategory는 "+sharedCategory,Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(),"sharedTitle은 "+sharedTitle,Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),"sharedDescription "+sharedDescription,Toast.LENGTH_SHORT).show();*/
+            Toast.makeText(getApplicationContext(),"sharedDescription "+sharedDescription,Toast.LENGTH_SHORT).show();*//*
+
 
                     @Override
                     public void success(JsonObject jsonObject, Response response) {
@@ -454,3 +460,4 @@ public class SharedActivity extends Activity {
 
 
 }//MainActivity class
+*/

@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 public class BootActivity extends AppCompatActivity {
     CountDownTimer ctimer;
     SharedPreferences setting;
+    String sharedText;
 
 
 
@@ -28,6 +30,18 @@ public class BootActivity extends AppCompatActivity {
         setContentView(R.layout.activity_boot);
         setting = getSharedPreferences("setting", 0);
         init();
+
+        Intent intent=getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+               sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);    // 가져온 인텐트의 텍스트 정보
+
+            }
+        }
         ctimer.start();
     }
     void init(){
@@ -47,6 +61,7 @@ public class BootActivity extends AppCompatActivity {
                     startActivity(myIntent);;
                 }*/
                 Intent myIntent = new Intent(BootActivity.this, LoginActivity.class);
+                myIntent.putExtra("url",sharedText);
                 startActivity(myIntent);
                 BootActivity.this.finish();  // 이전 액티비티 종료 시킴
             }
