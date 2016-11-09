@@ -16,7 +16,7 @@ public interface Retrofit {
                               @Query("travel_finish") String t_finish, Callback<JsonObject> callback);
 
     @GET("/yeobo.php") // 6
-    public void show_travel(@Query("flag") int flag, @Query("u_id") String id_num, retrofit.Callback<JsonObject> callback);
+    public void show_travel(@Query("flag") int flag, @Query("u_id") String u_id, retrofit.Callback<JsonObject> callback);
 
     @GET("/yeobo.php") // 7
     public void login(@Query("flag") int flag, @Query("u_id") String id_num,@Query("u_pw") String password, retrofit.Callback<JsonObject> callback);

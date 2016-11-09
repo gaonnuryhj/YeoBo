@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class SecondActivity extends AppCompatActivity {
 
     String t_title, id;
-    int t_num, n_id;
+    int t_num;
     TextView title;
 
     @Override
@@ -38,7 +38,6 @@ public class SecondActivity extends AppCompatActivity {
         title.setText(t_title);
 
         t_num = bundle.getInt("t_num");
-        n_id = bundle.getInt("c_id");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,7 +46,7 @@ public class SecondActivity extends AppCompatActivity {
 
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(new TestFragment1());
-        fragmentArrayList.add(TestFragment2.newInstance(n_id));
+  //      fragmentArrayList.add(TestFragment2.newInstance(n_id));
         fragmentArrayList.add(new TestFragment3());
 
         TestViewPagerAdapter adapter = new TestViewPagerAdapter(getSupportFragmentManager(), fragmentArrayList);

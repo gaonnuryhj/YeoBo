@@ -6,15 +6,13 @@ public class Travel implements Parcelable {
     int t_flag;
     int t_id;
     String t_title;
-    int c_id;
     String t_start;
     String t_end;
 
-    Travel(int flag, int t_id, String title, int c_id, String start, String end){
+    Travel(int flag, int t_id, String title,String start, String end){
         this.t_flag = flag;
         this.t_id = t_id;
         this.t_title = title;
-        this.c_id = c_id;
         this.t_start = start;
         this.t_end = end;
     }
@@ -23,7 +21,6 @@ public class Travel implements Parcelable {
         t_flag = in.readInt();
         t_id = in.readInt();
         t_title = in.readString();
-        c_id = in.readInt();
 
         t_start = in.readString();
         t_end = in.readString();
@@ -56,9 +53,6 @@ public class Travel implements Parcelable {
     }
 
 
-    public int getC_id() {
-        return c_id;
-    }
 
     @Override
     public int describeContents() {
@@ -70,7 +64,6 @@ public class Travel implements Parcelable {
         dest.writeInt(t_flag);
         dest.writeInt(t_id);
         dest.writeString(t_title);
-        dest.writeInt(c_id);
         dest.writeString(t_start);
         dest.writeString(t_end);
     }

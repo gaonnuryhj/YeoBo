@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity
                 Bundle bundle = new Bundle();
                 bundle.putString("t_title", t.getT_title());
                 bundle.putInt("t_num", t.getT_id());
-                bundle.putInt("n_id", t.getC_id());
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtras(bundle);
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.166.146:8080").build();
+                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.182.94/yeobo.php").build();
                 Retrofit retrofit = restAdapter.create(Retrofit.class);
                 retrofit.show_travel(6, u_id, new Callback<JsonObject>() {
                     @Override
@@ -110,12 +109,11 @@ public class MainActivity extends AppCompatActivity
                             JsonObject obj = (JsonObject) result.get(i);
                             int t_num = obj.get("travel_number").getAsInt();
                             String t_title = obj.get("travel_title").getAsString();
-                            int n_id = obj.get("city_id").getAsInt();
                             String t_start = obj.get("travel_start").getAsString();
                             String t_finish = obj.get("travel_finish").getAsString();
 
                             // 국기 이미지 가져와야함
-                            Travel t = new Travel(R.drawable.united_states_of_america, t_num, t_title, n_id, t_start, t_finish);
+                            Travel t = new Travel(R.drawable.united_states_of_america, t_num, t_title, t_start, t_finish);
                             t_arr.add(t);
                         }
                     }
