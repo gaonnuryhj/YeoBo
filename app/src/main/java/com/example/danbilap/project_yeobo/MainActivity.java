@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     TextView title_travel, start_date, end_date;
     ImageView flag;
 
-    String id;
+    String u_id;
 
     GridView gridView1;
     GridAdapter gridAdapter;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent i=getIntent();
-        id=i.getStringExtra("id");
+        u_id=i.getStringExtra("id");
         init();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                intent.putExtra("id", id);
+                intent.putExtra("id", u_id);
                 startActivity(intent);
             }
         });
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         gridView1 = (GridView) findViewById(R.id.gridView1);
 
 
-        show_travel(id);
+        show_travel(u_id);
 
         gridAdapter = new GridAdapter(this, R.layout.gridview1_item, background, t_arr);
         // 커스텀 어댑터를 GridView 에 적용
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity
                 Bundle bundle = new Bundle();
                 bundle.putString("t_title", t.getT_title());
                 bundle.putInt("t_num", t.getT_id());
+                bundle.putString("u_id",t.getU_id());
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra("id", id);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -111,9 +111,8 @@ public class MainActivity extends AppCompatActivity
                             String t_title = obj.get("travel_title").getAsString();
                             String t_start = obj.get("travel_start").getAsString();
                             String t_finish = obj.get("travel_finish").getAsString();
-
                             // 국기 이미지 가져와야함
-                            Travel t = new Travel(R.drawable.united_states_of_america, t_num, t_title, t_start, t_finish);
+                            Travel t = new Travel(R.drawable.united_states_of_america, t_num, t_title, t_start, t_finish,u_id);
                             t_arr.add(t);
                         }
                     }

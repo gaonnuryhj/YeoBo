@@ -22,8 +22,6 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        Intent i=getIntent();
-        id=i.getStringExtra("id");
         init();
 
     }
@@ -38,6 +36,7 @@ public class SecondActivity extends AppCompatActivity {
         title.setText(t_title);
 
         t_num = bundle.getInt("t_num");
+        id=bundle.getString("u_id");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,7 +45,7 @@ public class SecondActivity extends AppCompatActivity {
 
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(new TestFragment1());
-  //      fragmentArrayList.add(TestFragment2.newInstance(n_id));
+        fragmentArrayList.add(TestFragment2.newInstance(1));
         fragmentArrayList.add(new TestFragment3());
 
         TestViewPagerAdapter adapter = new TestViewPagerAdapter(getSupportFragmentManager(), fragmentArrayList);

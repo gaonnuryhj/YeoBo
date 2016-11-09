@@ -8,13 +8,15 @@ public class Travel implements Parcelable {
     String t_title;
     String t_start;
     String t_end;
+    String u_id;
 
-    Travel(int flag, int t_id, String title,String start, String end){
+    Travel(int flag, int t_id, String title,String start, String end,String u_id){
         this.t_flag = flag;
         this.t_id = t_id;
         this.t_title = title;
         this.t_start = start;
         this.t_end = end;
+        this.u_id=u_id;
     }
 
     protected Travel(Parcel in) {
@@ -24,6 +26,7 @@ public class Travel implements Parcelable {
 
         t_start = in.readString();
         t_end = in.readString();
+        u_id=in.readString();
     }
 
     public static final Creator<Travel> CREATOR = new Creator<Travel>() {
@@ -51,6 +54,9 @@ public class Travel implements Parcelable {
     public String getT_end(){
         return t_end;
     }
+    public String getU_id(){
+        return u_id;
+    }
 
 
 
@@ -66,6 +72,7 @@ public class Travel implements Parcelable {
         dest.writeString(t_title);
         dest.writeString(t_start);
         dest.writeString(t_end);
+        dest.writeString(u_id);
     }
 }
 
