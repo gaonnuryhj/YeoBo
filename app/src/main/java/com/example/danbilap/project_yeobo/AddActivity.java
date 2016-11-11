@@ -168,7 +168,7 @@ public class AddActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.182.94/yeobo.php").build();
+                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.182.94/yeoboH.php").build();
                 Retrofit retrofit = restAdapter.create(Retrofit.class);
                 retrofit.info_write(5, t_city, c_id, new Callback<JsonObject>() {
 

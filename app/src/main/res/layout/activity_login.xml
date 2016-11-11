@@ -19,10 +19,7 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+ 
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -70,14 +67,28 @@
                 android:id="@+id/checkBox" />
 
             <Button
-                android:id="@+id/email_sign_in_button"
+            android:id="@+id/email_sign_in_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Login"
+            android:textStyle="bold" />
+            <Button
+                android:id="@+id/join"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Login"
+                android:text="Join"
                 android:textStyle="bold" />
-
+            <Button
+                android:id="@+id/getPass"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="패스워드 찾기 "
+                android:textStyle="bold" />
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>

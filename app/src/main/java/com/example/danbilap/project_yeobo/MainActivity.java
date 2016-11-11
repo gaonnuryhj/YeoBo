@@ -1,11 +1,14 @@
 package com.example.danbilap.project_yeobo;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
@@ -52,13 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
     String u_id;
     String url;
-    String test = "test";
 
     GridView gridView1;
     GridAdapter gridAdapter;
-   // String imageUrl;
-
-
+    String imageUrl;
+    String test[];
     ShortenUrlGoogle shorten = new ShortenUrlGoogle();
     String short_url, short_image;
 
@@ -70,12 +71,6 @@ public class MainActivity extends AppCompatActivity {
         u_id = i.getStringExtra("id");
         url = i.getStringExtra("url");
         short_url = shorten.getShortenUrl(url);
-        //   Toast.makeText(this,short_url,Toast.LENGTH_LONG).show();
-        /*if (short_url != null) {
-            ShareTask shareTask = new ShareTask();
-            shareTask.execute(short_url);
-            Toast.makeText(MainActivity.this, imageUrl, Toast.LENGTH_SHORT).show();
-        }*/
 
 
         init();
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void init() {
-
+  //      i_arr=new ArrayList<ImageUrl>();
         t_arr = new ArrayList<Travel>();
 
         gridView1 = (GridView) findViewById(R.id.gridView1);
@@ -123,15 +118,73 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        gridView1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,final int position, long id) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+
+                //alertDialogBuilder.setTitle("삭제");
+
+                alertDialogBuilder
+                        .setMessage("삭제하시겠습니까?")
+                        .setCancelable(false)
+                        .setPositiveButton("삭제",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(
+                                    DialogInterface dialog, int id) {
+                                     Travel t = t_arr.get(position);
+                                     int t_num=t.getT_id();
+                                     delete(t_num);
+                                     t_arr.remove(position);
+                                     gridAdapter.notifyDataSetChanged();
 
 
+                            }
+                        })
+                        .setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        // 다이얼로그를 취소한다
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // 다이얼로그 보여주기
+                alertDialog.show();
+                return false;
+            }
+        });
+
+
+    }
+    void delete(final int t_num) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.182.94/yeoboH.php").build();
+                Retrofit retrofit = restAdapter.create(Retrofit.class);
+                retrofit.delete(9, t_num, new Callback<JsonObject>() {
+                    @Override
+                    public void success(JsonObject jsonObject, Response response) {
+
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("test", error.toString());
+                    }
+                });
+            }
+        }).start();
     }
 
     void show_travel(final String u_id) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.182.94/yeobo.php").build();
+                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.182.94/yeoboH.php").build();
                 Retrofit retrofit = restAdapter.create(Retrofit.class);
                 retrofit.show_travel(6, u_id, new Callback<JsonObject>() {
                     @Override
@@ -161,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
- /*   public class ShareTask extends AsyncTask<String, Void, String> { //공유하기를 눌렀을 때 실제로 사용자에게 보여주는 데이터를 처리하는 부분.
+    public class ShareTask extends AsyncTask<String, Void, String> { //공유하기를 눌렀을 때 실제로 사용자에게 보여주는 데이터를 처리하는 부분.
         //태그의 파싱이 필요하다.
         HttpURLConnection conn = null;
 
@@ -208,8 +261,8 @@ public class MainActivity extends AppCompatActivity {
                     if (imageUrl == null) { //이미지가 아무것도 들어오지 않은 상태일때만 실행.(이미지가 여러개 들어오는 경우 위해)
                         imageUrl = elements.get(i).attr("content");
                         short_image = shorten.getShortenUrl(imageUrl);
-                        image(imageUrl);
-
+                        ImageUrl img = new ImageUrl(imageUrl);
+                     //   i_arr.add(img);
                     }
                 }
 
@@ -218,9 +271,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void image(String url) {
-        imageUrl = url;
-    }*/
 }
 
 

@@ -38,12 +38,12 @@
         </activity>
 
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".JoinActivity"></activity>
+        <activity android:name=".Join"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".SecondActivity"> </activity>
         <activity android:name=".AddActivity"> </activity>
         <activity android:name=".Side_1"></activity>
-        <activity android:name=".SharedActivity"/>
+        <activity android:name=".Password"></activity>
     </application>
 
 </manifest>

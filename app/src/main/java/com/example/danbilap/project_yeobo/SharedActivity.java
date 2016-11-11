@@ -251,8 +251,6 @@ public class SharedActivity extends Activity {
                     sharedDescription = elements.get(i).attr("content"); //sharedInstance로 보낼 데이터4
                     s1.setSharedDescription(sharedDescription);
                     //Toast.makeText(getApplicationContext(),"부제목 " +sharedDescription,Toast.LENGTH_LONG).show();
-
-
                 }
                 if (property.equals("og:title")) {
                     sharedTitle = elements.get(i).attr("content");//sharedInstance로 보낼 데이터5

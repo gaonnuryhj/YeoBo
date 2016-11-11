@@ -1,3 +1,4 @@
+/*
 package com.example.danbilap.project_yeobo;
 
 import android.content.Context;
@@ -106,3 +107,4 @@ public class JoinActivity extends AppCompatActivity {
         }).start();
     }
 }
+*/
