@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
     String test[];
     ShortenUrlGoogle shorten = new ShortenUrlGoogle();
     String short_url, short_image;
+    String sharedDescription;
+    String sharedTitle;
+    int travel_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("u_id", t.getU_id());
                 bundle.putString("url", t.getUrl());
  //               bundle.putString("imgurl", t.getImgurl());
+                travel_number=t.getT_id();
+                ShareTask shareTask = new ShareTask();
+                shareTask.execute(url);
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -254,21 +260,85 @@ public class MainActivity extends AppCompatActivity {
             // Elements elements = doc.select("meta");
             Elements elements = (Elements) doc.getElementsByTag("meta");
 
+            String imageUrl = null;
             for (int i = 0; i < elements.size(); i++) {
                 String property = elements.get(i).attr("property");
 
                 if (property.equals("og:image")) {
-                    if (imageUrl == null) { //이미지가 아무것도 들어오지 않은 상태일때만 실행.(이미지가 여러개 들어오는 경우 위해)
+                    if(imageUrl==null){ //이미지가 아무것도 들어오지 않은 상태일때만 실행.(이미지가 여러개 들어오는 경우 위해)
                         imageUrl = elements.get(i).attr("content");
-                        short_image = shorten.getShortenUrl(imageUrl);
-                        ImageUrl img = new ImageUrl(imageUrl);
-                     //   i_arr.add(img);
+                        Toast.makeText(getApplicationContext(),imageUrl,Toast.LENGTH_LONG).show();
+                        // new ImageTask().execute(imageUrl); //이미지의 url을 Bitmap 형태로 바꾼다.
                     }
+                }
+                if (property.equals("og:description")) {
+                    sharedDescription = elements.get(i).attr("content"); //sharedInstance로 보낼 데이터4
+                   // s1.setSharedDescription(sharedDescription);
+                    //Toast.makeText(getApplicationContext(),"부제목 " +sharedDescription,Toast.LENGTH_LONG).show();
+                }
+                if (property.equals("og:title")) {
+                    sharedTitle = elements.get(i).attr("content");//sharedInstance로 보낼 데이터5
+                   // s1.setSharedTitle(sharedTitle);
+                    //Toast.makeText(getApplicationContext(),"제목 " +sharedTitle,Toast.LENGTH_LONG).show();
+
                 }
 
 
+
+
             }
-        }
+
+
+
+            if(sharedDescription==null || sharedTitle==null){ //for문 끝난 후에 제목과 부제목이 null인 상태이면.
+            //    sharedTitle = sharedText; //타이틀 부분에 공유하기를 통해 intent로 받아온 값 자체를 뿌려줌.
+
+            }
+
+            if(imageUrl==null){ //for문 끝난 후에도 imgUrl 널값이라면.
+
+            }
+            else{
+
+                share_write(travel_number,url,imageUrl,sharedDescription,sharedTitle);
+            }
+
+
+        }//onPostExecute 함수
+
+
+    }
+
+    //DB에 값 저장.
+    void share_write(final int travel_number, final String share_Url, final String share_ImageUrl, final String share_description, final String share_title){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://203.252.182.94/yeoboH.php").build();
+                Retrofit retrofit = restAdapter.create(Retrofit.class);
+                retrofit.share_write(0,travel_number,share_Url,share_ImageUrl,share_description,share_title, new Callback<JsonObject>() {
+
+
+
+                    @Override
+                    public void success(JsonObject jsonObject, Response response) {
+                        JsonArray result = jsonObject.getAsJsonArray("result");
+                        String errorCode = ((JsonObject)result.get(0)).get("errorCode").getAsString();
+                        if(errorCode.equals("success")){
+
+                            Toast.makeText(MainActivity.this, "성공적으로 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("test", error.toString());
+                    }
+                });
+            }
+        }).start();
+
+
     }
 
 }

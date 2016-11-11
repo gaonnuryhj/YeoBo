@@ -56,9 +56,8 @@ public class SecondActivity extends AppCompatActivity {
         url=bundle.getString("url");
 //        image=bundle.getString("imgurl");
         if(url!=null){
-            saveUrl(url,t_num);
+           // saveUrl(url,t_num);
         }
-        Toast.makeText(this,image,Toast.LENGTH_LONG).show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -81,7 +80,7 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
-    public void saveUrl(final String share_url,final int t_num){
+  /*  public void saveUrl(final String share_url,final int t_num){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -113,5 +112,5 @@ public class SecondActivity extends AppCompatActivity {
     public void onBackPressed() { // 뒤로 가기 했을 때 MainActivity로 돌아가도록
         super.onBackPressed();
         SecondActivity.this.finish();
-    }
+    }*/
 }

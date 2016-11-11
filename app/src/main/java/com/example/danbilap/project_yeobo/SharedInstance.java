@@ -17,11 +17,11 @@ public class SharedInstance {
     }
 
     //웹페이지 공유할 때 생성할 객체.
-    public SharedInstance(String sharedUrl, String sharedCategory, Bitmap sharedBitmap,
+    public SharedInstance(String sharedUrl,
                           String sharedDescription, String sharedTitle) {
         this.sharedUrl = sharedUrl;
-        this.sharedCategory = sharedCategory;
-        this.sharedBitmap = sharedBitmap;
+       /* this.sharedCategory = sharedCategory;
+        this.sharedBitmap = sharedBitmap;*/
         this.sharedDescription = sharedDescription;
         this.sharedTitle = sharedTitle;
     }
