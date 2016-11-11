@@ -1,18 +1,20 @@
 package com.example.danbilap.project_yeobo;
 
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -36,14 +38,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     // 해당 여행 나라의 국기 이미지
     ArrayList<Travel> t_arr;
@@ -81,6 +84,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //은슬
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        android.support.v7.app.ActionBarDrawerToggle toggle = new android.support.v7.app.ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //은슬
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void init() {
-  //      i_arr=new ArrayList<ImageUrl>();
+        //      i_arr=new ArrayList<ImageUrl>();
         t_arr = new ArrayList<Travel>();
 
         gridView1 = (GridView) findViewById(R.id.gridView1);
@@ -115,18 +131,21 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putInt("t_num", t.getT_id());
                 bundle.putString("u_id", t.getU_id());
                 bundle.putString("url", t.getUrl());
- //               bundle.putString("imgurl", t.getImgurl());
-                travel_number=t.getT_id();
+                //               bundle.putString("imgurl", t.getImgurl());
+                travel_number = t.getT_id();
+
+            if(url!=null){
                 ShareTask shareTask = new ShareTask();
-                shareTask.execute(url);
+                shareTask.execute(url);}
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
+
         gridView1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,final int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
                 //alertDialogBuilder.setTitle("삭제");
@@ -135,18 +154,18 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage("삭제하시겠습니까?")
                         .setCancelable(false)
                         .setPositiveButton("삭제",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(
-                                    DialogInterface dialog, int id) {
-                                     Travel t = t_arr.get(position);
-                                     int t_num=t.getT_id();
-                                     delete(t_num);
-                                     t_arr.remove(position);
-                                     gridAdapter.notifyDataSetChanged();
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        Travel t = t_arr.get(position);
+                                        int t_num = t.getT_id();
+                                        delete(t_num);
+                                        t_arr.remove(position);
+                                        gridAdapter.notifyDataSetChanged();
 
 
-                            }
-                        })
+                                    }
+                                })
                         .setNegativeButton("취소",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(
@@ -165,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     void delete(final int t_num) {
         new Thread(new Runnable() {
             @Override
@@ -220,6 +240,60 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+//        if (id == R.id.nav_camera) {
+//            Intent intent = new Intent(SecondActivity.this, Side_1.class);
+//            startActivity(intent);
+//            // Handle the camera action
+//        }
+        if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
     public class ShareTask extends AsyncTask<String, Void, String> { //공유하기를 눌렀을 때 실제로 사용자에게 보여주는 데이터를 처리하는 부분.
         //태그의 파싱이 필요하다.
         HttpURLConnection conn = null;
@@ -273,12 +347,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (property.equals("og:description")) {
                     sharedDescription = elements.get(i).attr("content"); //sharedInstance로 보낼 데이터4
-                   // s1.setSharedDescription(sharedDescription);
+                    // s1.setSharedDescription(sharedDescription);
                     //Toast.makeText(getApplicationContext(),"부제목 " +sharedDescription,Toast.LENGTH_LONG).show();
                 }
                 if (property.equals("og:title")) {
                     sharedTitle = elements.get(i).attr("content");//sharedInstance로 보낼 데이터5
-                   // s1.setSharedTitle(sharedTitle);
+                    // s1.setSharedTitle(sharedTitle);
                     //Toast.makeText(getApplicationContext(),"제목 " +sharedTitle,Toast.LENGTH_LONG).show();
 
                 }
@@ -291,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             if(sharedDescription==null || sharedTitle==null){ //for문 끝난 후에 제목과 부제목이 null인 상태이면.
-            //    sharedTitle = sharedText; //타이틀 부분에 공유하기를 통해 intent로 받아온 값 자체를 뿌려줌.
+                //    sharedTitle = sharedText; //타이틀 부분에 공유하기를 통해 intent로 받아온 값 자체를 뿌려줌.
 
             }
 
@@ -341,7 +415,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
 }
+
+
+
 
 
 

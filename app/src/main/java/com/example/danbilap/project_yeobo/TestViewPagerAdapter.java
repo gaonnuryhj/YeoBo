@@ -17,11 +17,13 @@ public class TestViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0 :
-                return "공유하기";  // 후기
+                return "1";  // 후기
             case 1 :
-                return "국가정보";  // 후기
+                return "2";  // 후기
             case 2 :
-                return "긴급번호";  // 멘토 리스트
+                return "3";  // 멘토 리스트
+            case 3 :
+                return "4";
         }
         return "position "+position;
     }

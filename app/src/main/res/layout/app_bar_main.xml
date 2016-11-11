@@ -9,10 +9,11 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@color/main"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
+        android:paddingRight="13dp"
         android:gravity="center"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -37,7 +38,7 @@
                     android:textSize="25dp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:text=" 여"/>
+                    android:text="K"/>
 
                 <TextView
                     android:layout_gravity="bottom"
@@ -45,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
                     android:textColor="@color/white"
-                    android:text="행을 "/>
+                    android:text="orea "/>
 
                 <TextView
                     android:layout_gravity="bottom"
@@ -54,7 +55,7 @@
                     android:textSize="25dp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:text="보"/>
+                    android:text="C"/>
 
                 <TextView
                     android:layout_gravity="bottom"
@@ -62,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
                     android:textColor="@color/white"
-                    android:text="내줘"/>
+                    android:text="hat"/>
 
             </LinearLayout>
 
